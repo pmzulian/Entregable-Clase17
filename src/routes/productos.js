@@ -14,6 +14,7 @@ router.post("/productos/guardar", (req, res) => {
     .catch((error) => res.json({ error }));
 });
 
+
 router.get("/productos/listar", (req, res) => {
   service
   .listarTodos()
@@ -22,6 +23,7 @@ router.get("/productos/listar", (req, res) => {
     : res.send("No hay productos cargados")})
   .catch(error => res.json({error}))
 });
+
 
 router.get("/productos/listar/:id", (req, res) => {
   service

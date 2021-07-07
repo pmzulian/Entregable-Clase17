@@ -17,6 +17,7 @@ function listarIndividual(param) {
 }) */
 //========================================================================
 
+
 function guardar(producto) {
    return db("productos").insert(producto)
 }
