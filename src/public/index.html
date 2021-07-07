@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Ingreso de Productos</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <div class="container mt-3">
+        <div class="jumbotron">
+            <h1>Ingrese Producto</h1>
+            <br>
+
+            <form autocomplete="off">
+                <!-- Campo nombre del producto -->
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input id="nombre" class="form-control" type="text" name="title" required>
+                </div>
+
+                <!-- Campo precio del producto -->
+                <div class="form-group">
+                    <label for="precio">Precio</label>
+                    <input id="precio" class="form-control" type="number" step="0.5" name="price" required>
+                </div>
+
+                <!-- Campo url de la foto del producto -->
+                <div class="form-group">
+                    <label for="foto">Foto URL</label>
+                    <input id="foto" class="form-control" type="url" name="thumbnail">
+                </div>
+
+                <!-- Botón de envío -->
+                <button class="btn btn-success mt-3">Enviar</button>
+            </form>
+            <hr>
+            <button class="btn btn-info mt-3" onclick="location.href ='/api/productos/vista'">Vista handlebars
+                productos</button>
+            <br>
+            <br>
+
+            <!-- Sobre este div renderizamos la table de datos con Socket.io -->
+            <div id="datos"></div>
+        </div>
+
+        <!-- ============================================================================================= -->
+        <div class="jumbotron">
+            <h2>Chat de mensajes</h2>
+
+            <!-- Formulario para enviar mensajes -->
+            <form onsubmit="return addMessage(this)" autocomplete="off">
+                <input type="email" id="username" placeholder="Email" class="form-control" required>
+                <br>
+                <input type="text" id="texto" placeholder="Mensaje a enviar" class="form-control">
+                <br>
+                <input type="submit" value="Enviar" class="btn btn-info">
+            </form>
+            <br>
+            <!-- Etiqueta div para recepción de los mensaejs -->
+            <ul class="list-group">
+                <div id="messages"></div>
+            </ul>
+
+        </div>
+    </div>
+
+    <script src="js/handlebars-v4.7.6.js"></script>
+    <script src="js/main.js"></script>
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
