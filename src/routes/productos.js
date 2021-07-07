@@ -8,15 +8,13 @@ const service = require("../models/consultas")
 
 //=====================================================================
 router.post("/productos/guardar", (req, res) => {
-  productos.guardar({
-    ...req.body,
-    id: productos.getId(),
-  });
-  res.send(req.body);
+  service
+    .guardar({...req.body})
+    .then(() => res.json({...req.body}))
+    .catch((error) => res.json({ error }));
 });
 
 router.get("/productos/listar", (req, res) => {
-  // res.send(productos.listarTodos())
   service
   .listarTodos()
   .then(response => {response.length > 0

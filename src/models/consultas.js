@@ -9,7 +9,6 @@ function listarTodos() {
 
 
 function listarIndividual(param) {
-   
     return db("productos").select("*").where({ id: param });
 }
 
@@ -19,13 +18,14 @@ function listarIndividual(param) {
 //========================================================================
 
 function guardar(producto) {
-    
+   return db("productos").insert(producto)
 }
-
+//========================================================================
 
 
 
 module.exports = {
     listarTodos,
-    listarIndividual
+    listarIndividual,
+    guardar
 }
