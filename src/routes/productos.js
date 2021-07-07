@@ -38,20 +38,16 @@ router.put("/productos/actualizar/:id", (req, res) => {
   const ubicacion = req.params.id;
   const actualizar = req.body;
 
-  if (ubicacion <= productos.productos.length) {
-    productos.productos = productos.productos.map((p) => {
-      if (p.id == ubicacion) {
-        p = Object.assign(p, actualizar);
-      }
-      return p;
-    });
-    res.json({
-      ...productos.productos,
-    });
-  } else {
-    res.send("No hay producto con el índice " + ubicacion);
-  }
+  service
+    .actualizar(ubicacion, actualizar)
+    .then((response) => {
+      response
+        ? res.json(req.body)
+        : res.send(`No existe produto con id ${req.params.id}`);
+    })
+    .catch((error) => console.log(error));
 });
+
 
 router.delete("/productos/borrar/:id", (req, res) => {
   let id = req.params.id;

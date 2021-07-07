@@ -24,9 +24,15 @@ function guardar(producto) {
 //========================================================================
 
 
+function actualizar(id, body) {
+    const ubicacion = db("productos").where({id: id})
+    const actualizar = {...body}
+    return ubicacion.update(actualizar)
+}
 
 module.exports = {
     listarTodos,
     listarIndividual,
-    guardar
+    guardar,
+    actualizar
 }
