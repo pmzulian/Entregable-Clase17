@@ -13,7 +13,6 @@ router.post("/productos/guardar", (req, res) => {
     id: productos.getId(),
   });
   res.send(req.body);
-  //res.redirect("/productos/vista");
 });
 
 router.get("/productos/listar", (req, res) => {
@@ -23,13 +22,14 @@ router.get("/productos/listar", (req, res) => {
   .then(response => {response.length > 0
     ? res.json(response)
     : res.send("No hay productos cargados")})
+  .catch(error => res.json({error}))
 });
 
 router.get("/productos/listar/:id", (req, res) => {
   service
   .listarIndividual(req.params.id)
   .then(response => {response.length > 0 ? res.json(response) : res.send(`No existe produto con id ${req.params.id}`)})
-  .catch(error => error)
+  .catch(error => res.json({error}))
 });
 
 //=====================================================================

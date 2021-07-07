@@ -5,6 +5,8 @@ function listarTodos() {
 }
 
 // listarTodos().then(response => console.log(response))
+//========================================================================
+
 
 function listarIndividual(param) {
    
@@ -14,6 +16,14 @@ function listarIndividual(param) {
 /* listarIndividual(1).then(res => {
     res.length > 0 ? console.log(res) : console.log("No existe producto")
 }) */
+//========================================================================
+
+function guardar(producto) {
+    
+}
+
+
+
 
 module.exports = {
     listarTodos,
