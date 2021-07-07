@@ -1,12 +1,12 @@
 const knex = require("knex")({
   client: "mysql",
   connection: {
-    host: "127.0.0.1",
+    host: "localhost",
     user: "pmzulian",
     password: "30212506",
-    database: "productos",
+    database: "coderhouse",
   },
-  pool: { min: 0, max: 7 },
+  pool: { min: 0, max: 8 },
 });
 
-module.exports = knex
+module.exports = knex;

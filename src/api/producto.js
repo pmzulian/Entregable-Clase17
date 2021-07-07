@@ -12,11 +12,13 @@ class Producto {
   }
 
   listarTodos() {
-    return this.productos;
+    return this.productos.length > 0 ? this.productos : "No hay productos cargados"
   }
 
   listarIndividual(id) {
-    return this.productos[id - 1];
+    return this.productos[id - 1]
+      ? this.productos[id - 1]
+      :`No existe producto con el id ${id}`;
   }
 
   borrar(id) {

@@ -1,7 +1,10 @@
 const express = require("express");
+const { listarTodos } = require("../api/producto");
 const router = express.Router();
 
 const productos = require("../api/producto");
+
+const service = require("../models/consultas")
 
 //=====================================================================
 router.post("/productos/guardar", (req, res) => {
@@ -14,22 +17,19 @@ router.post("/productos/guardar", (req, res) => {
 });
 
 router.get("/productos/listar", (req, res) => {
-  const todos = productos.listarTodos();
-  if (todos.length > 0) {
-    res.send(todos);
-  } else {
-    res.json({ error: "No hay productos cargados" });
-  }
+  // res.send(productos.listarTodos())
+  service
+  .listarTodos()
+  .then(response => {response.length > 0
+    ? res.json(response)
+    : res.send("No hay productos cargados")})
 });
 
 router.get("/productos/listar/:id", (req, res) => {
-  let found = productos.listarIndividual(req.params.id);
-  console.log(found);
-  if (found) {
-    res.send(found);
-  } else {
-    res.json({ error: "No hay producto con el id indicado" });
-  }
+  service
+  .listarIndividual(req.params.id)
+  .then(response => {response.length > 0 ? res.json(response) : res.send(`No existe produto con id ${req.params.id}`)})
+  .catch(error => error)
 });
 
 //=====================================================================
