@@ -43,26 +43,19 @@ router.put("/productos/actualizar/:id", (req, res) => {
     .then((response) => {
       response
         ? res.json(req.body)
-        : res.send(`No existe produto con id ${req.params.id}`);
+        : res.send(`No existe produto con id ${ubicacion}`);
     })
     .catch((error) => console.log(error));
 });
 
 
 router.delete("/productos/borrar/:id", (req, res) => {
-  let id = req.params.id;
-
-  let productoBuscado = productos.productos.find((p) => {
-    return p.id == id;
-  });
-
-  if (productoBuscado) {
-    let borrado = productos.borrar(id);
-
-    res.send(borrado);
-  } else {
-    res.send("No exite el produco");
-  }
+  service.listarIndividual(req.params.id).then((response) => res.json(response))
+  
+  service
+    .borrar(req.params.id)
+    .then(response => response)
+    .catch(error => console.log(error))
 });
 
 router.get("/productos/vista", (req, res) => {

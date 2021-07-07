@@ -29,10 +29,18 @@ function actualizar(id, body) {
     const actualizar = {...body}
     return ubicacion.update(actualizar)
 }
+//========================================================================
+
+
+function borrar(id) {
+    return db("productos").where({id: id}).del()
+}
+
 
 module.exports = {
     listarTodos,
     listarIndividual,
     guardar,
-    actualizar
+    actualizar,
+    borrar
 }
