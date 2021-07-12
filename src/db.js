@@ -9,4 +9,13 @@ const knex = require("knex")({
   pool: { min: 0, max: 8 },
 });
 
-module.exports = knex;
+
+const sqlite = requiere("knex")({
+  client: "sqlite3",
+  connection: {
+    filename: (__dirname + "./database/db.sqlite")
+  }
+})
+
+
+module.exports = {knex, sqlite};

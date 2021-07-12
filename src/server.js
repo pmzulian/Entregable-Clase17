@@ -5,6 +5,9 @@ const app = express();
 
 const puerto = 8080;
 
+const productosRouter = require("./routes/productos");
+const mensajesRouter = require("./routes/mensajes")
+
 //? No sé si irá en este archivo
 const productos = require("./api/producto.js");
 
@@ -74,8 +77,8 @@ app.use((err, req, res, next) => {
 //====================================================================
 
 //Importo las rutas y las uso con el prefijo /api
-const productosRouter = require("./routes/productos");
 app.use("/api", productosRouter);
+app.use("/", mensajesRouter);
 
 //====================================================================
 let messages = [];
@@ -90,4 +93,4 @@ io.on("connection", function (socket) {
     messages.push(data);
     io.sockets.emit("messages", messages);
   });
-});
+}); 

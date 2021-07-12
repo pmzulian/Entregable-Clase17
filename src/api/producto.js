@@ -1,4 +1,4 @@
-const service = require("../models/consultas")
+const service = require("../models/consultasMensajes")
 
 class Producto {
   constructor() {

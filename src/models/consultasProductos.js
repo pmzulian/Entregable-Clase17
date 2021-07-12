@@ -1,31 +1,25 @@
-const db = require("../db");
+const {knex} = require("../db");
 
 function listarTodos() {
-    return db("productos").select("*"); 
+    return knex("productos").select("*"); 
 }
-
-// listarTodos().then(response => console.log(response))
 //========================================================================
 
 
 function listarIndividual(param) {
-    return db("productos").select("*").where({ id: param });
+    return knex("productos").select("*").where({ id: param });
 }
-
-/* listarIndividual(1).then(res => {
-    res.length > 0 ? console.log(res) : console.log("No existe producto")
-}) */
 //========================================================================
 
 
 function guardar(producto) {
-   return db("productos").insert(producto)
+   return knex("productos").insert(producto)
 }
 //========================================================================
 
 
 function actualizar(id, body) {
-    const ubicacion = db("productos").where({id: id})
+    const ubicacion = knex("productos").where({id: id})
     const actualizar = {...body}
     return ubicacion.update(actualizar)
 }
@@ -33,8 +27,9 @@ function actualizar(id, body) {
 
 
 function borrar(id) {
-    return db("productos").where({id: id}).del()
+    return knex("productos").where({id: id}).del()
 }
+//========================================================================
 
 
 module.exports = {
