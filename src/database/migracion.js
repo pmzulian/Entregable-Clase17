@@ -8,7 +8,7 @@ sqlite.schema
     table
       .timestamp("fecha", { useTz: true })
       .notNullable()
-      .defaultTo(knex.fn.now());
+      .defaultTo(sqlite.fn.now());
   })
   .then(() => {
     console.log("¡Tabla mensajes creada!");

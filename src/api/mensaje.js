@@ -1,4 +1,4 @@
-const Mensaje = require("../models/consultasProductos");
+const Mensaje = require("../models/consultasMensajes");
 
 class MensajeController{
 
@@ -12,11 +12,20 @@ class MensajeController{
         }
     }
 
-    async buscar(condicion) {
+    async listar() {
         try {
-            return await Mensaje.buscarMensaje(condicion);
+            return await Mensaje.listarTodos();
         } catch (error) {
-            throw error;
+            throw "No hay mensajes en el servidor";
+        }
+    }
+
+
+    async buscar(param) {
+        try {
+            return await Mensaje.buscarIndividual(param);
+        } catch (error) {
+            throw error
         }
     }
 

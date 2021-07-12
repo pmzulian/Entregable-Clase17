@@ -10,12 +10,13 @@ const knex = require("knex")({
 });
 
 
-const sqlite = requiere("knex")({
+const sqlite = require("knex")({
   client: "sqlite3",
   connection: {
-    filename: (__dirname + "./db/db.sqlite")
-  }
-})
+    filename: __dirname + "./db/db.sqlite",
+  },
+  useNullAsDefault: true,
+});
 
 
 module.exports = {knex, sqlite};
