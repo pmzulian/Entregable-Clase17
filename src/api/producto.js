@@ -1,3 +1,5 @@
+const service = require("../models/consultas")
+
 class Producto {
   constructor() {
     this.productos = [];
@@ -7,19 +9,30 @@ class Producto {
     return this.productos.length + 1;
   }
 
-  guardar(producto) {
-    this.productos.push(producto);
+  async guardar(producto) {
+    let id = await service.guardar(producto);
+    return await service.listarIndividual(id[0])
   }
 
-  listarTodos() {
-    return this.productos.length > 0 ? this.productos : "No hay productos cargados"
+
+
+  async listarTodos() {
+    let prods = await service.listarTodos();
+    return prods.length > 0 ? await prods : "No hay productos cargados"
   }
 
-  listarIndividual(id) {
-    return this.productos[id - 1]
-      ? this.productos[id - 1]
-      :`No existe producto con el id ${id}`;
+
+
+  async listarIndividual(id) {
+    let prod = await service.listarIndividual(id)
+    if(prod[0]){
+      return await prod[0]
+    }else{
+      return `No existe producto con el id ${id}`
+    }
   }
+
+
 
   borrar(id) {
     const index = this.productos.findIndex((prod) => prod.id == id);
@@ -27,9 +40,9 @@ class Producto {
   }
 }
 
-const nuevosProductos = new Producto();
+// const nuevosProductos = new Producto();
 
-nuevosProductos.guardar({
+/* nuevosProductos.guardar({
   id: nuevosProductos.getId(),
   title: "Computadora Desktop",
   price: 120000,
@@ -42,7 +55,7 @@ nuevosProductos.guardar({
   title: "Televisor SmarTV",
   price: 90000,
   thumbnail: "https://www.flaticon.es/icono-gratis/televisor_4384367",
-});
+}); */
 
 // nuevosProductos.listarIndividual(2)
 // nuevosProductos.productos.forEach(index => console.log(index))

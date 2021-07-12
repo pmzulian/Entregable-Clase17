@@ -1,5 +1,5 @@
 const express = require("express");
-const { listarTodos } = require("../api/producto");
+
 const router = express.Router();
 
 const productos = require("../api/producto");
@@ -7,29 +7,38 @@ const productos = require("../api/producto");
 const service = require("../models/consultas")
 
 //=====================================================================
-router.post("/productos/guardar", (req, res) => {
-  service
-    .guardar({...req.body})
-    .then(() => res.json({...req.body}))
-    .catch((error) => res.json({ error }));
+router.post("/productos/guardar", async (req, res) => {
+  try {
+    const prods = await productos.guardar(req.body);
+    console.log(prods);
+    res.json(prods);
+  } catch (error) {
+    res.send(error)
+  } 
 });
 
 
-router.get("/productos/listar", (req, res) => {
-  service
-  .listarTodos()
-  .then(response => {response.length > 0
-    ? res.json(response)
-    : res.send("No hay productos cargados")})
-  .catch(error => res.json({error}))
+router.get("/productos/listar", async (req, res) => {
+  
+  try {
+    res.json(await service.listarTodos());
+  } catch (error) {
+    res.send(error)
+  }
+  
 });
 
 
-router.get("/productos/listar/:id", (req, res) => {
-  service
-  .listarIndividual(req.params.id)
-  .then(response => {response.length > 0 ? res.json(response) : res.send(`No existe produto con id ${req.params.id}`)})
-  .catch(error => res.json({error}))
+router.get("/productos/listar/:id", async (req, res) => {
+
+  try {
+    const prod = await productos.listarIndividual(req.params.id)
+    console.log(prod);
+    res.json(prod)
+  } catch (error) {
+    res.send(error)
+  }
+
 });
 
 //=====================================================================
@@ -47,6 +56,7 @@ router.put("/productos/actualizar/:id", (req, res) => {
     })
     .catch((error) => console.log(error));
 });
+
 
 
 router.delete("/productos/borrar/:id", (req, res) => {
