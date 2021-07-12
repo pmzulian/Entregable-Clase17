@@ -33,11 +33,27 @@ class Producto {
   }
 
 
-
-  borrar(id) {
-    const index = this.productos.findIndex((prod) => prod.id == id);
-    return this.productos.splice(index, 1);
+  async actualizar(id, param){
+    const prod = await service.listarIndividual(id)
+    if (prod[0]) {
+      return await service.actualizar(id, param);
+    } else {
+      return `No existe el producto con el id ${id}`
+    } 
   }
+
+
+  async borrar(id) {
+    const prod = await service.listarIndividual(id)
+    if(prod[0]){
+      await service.borrar(id);
+      return prod
+    }else{
+      return `No existe el producto con el id ${id}`;
+    }    
+  }
+
+
 }
 
 // const nuevosProductos = new Producto();
