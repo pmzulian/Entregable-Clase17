@@ -21,9 +21,9 @@ class MensajeController{
     }
 
 
-    async buscar(param) {
+    async buscar() {
         try {
-            return await Mensaje.buscarIndividual(param);
+            return await Mensaje.buscarIndividual();
         } catch (error) {
             throw error
         }

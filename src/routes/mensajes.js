@@ -7,7 +7,7 @@ const MensajeController = require("../api/mensaje");
 router.post("/mensajes", async (req, res) => {
     try {
         let mensaje = await MensajeController.guardar(req.body);
-        let msg = await MensajeController.buscar({id: mensaje[0]})
+        let msg = await MensajeController.buscar()
         res.json(msg)
     } catch (error) {
         res.status(500).send(error)

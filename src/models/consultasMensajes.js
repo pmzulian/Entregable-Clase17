@@ -23,9 +23,9 @@ class Mensaje {
     }
   }
 
-  async buscarIndividual(param){
+  async buscarIndividual(){
     try {
-      let msg = await mensajesModel.find({id: param});
+      let msg = await mensajesModel.find({}).sort({_id: -1}).limit(1);
       return msg;
     } catch (error) {
       throw error
