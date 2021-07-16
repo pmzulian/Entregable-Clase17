@@ -1,8 +1,10 @@
 const mongoose = require("mongoose");
 
 const MONGO_URL = "mongodb://localhost:27017/ecommerce";
+const mensajesCollection = "mensajes";
+const productosCollection = "productos";
 
-async function CRUD() {
+async function conexion() {
     try {
         
         /* Conexión hacia la base de datos */
@@ -17,5 +19,24 @@ async function CRUD() {
     }
 }
 
+conexion();
 
-CRUD();
+//Creamos esquemas y los guardamos en variables
+const mensajesSchema = new mongoose.Schema({
+  mensaje: { type: String, required: true },
+  email: { type: String, required: true },
+  fecha: { type: Date, default: Date.now },
+});
+
+const productosSchema = new mongoose.Schema({
+  title: { type: String, required: true },
+  price: { type: Number, required: true },
+  thumbnail: { type: String, required: true },
+  stock: { type: Number, required: true },
+});
+
+//Generamos y guardamos ambos modelos
+const mensajesModel = mongoose.model(mensajesCollection, mensajesSchema);
+const productosModel = mongoose.model(productosCollection, productosSchema);
+
+module.exports = {mensajesModel, productosModel};

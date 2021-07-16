@@ -1,11 +1,13 @@
-const {sqlite} = require("../db");
+const {mensajesModel} = require("../db");
+
+// const mensajesModel = conexion.model("mensajes")
 
 class Mensaje {
   constructor() {}
 
   async guardarMensaje(mensaje) {
     try {
-      let resultado = await sqlite("mensajes").insert(mensaje);
+      let resultado = await new mensajesModel(mensaje).save();
       return resultado;
     } catch (error) {
       throw error;
@@ -14,7 +16,7 @@ class Mensaje {
 
   async listarTodos() {
     try {
-      let mensajes = await sqlite("mensajes");
+      let mensajes = await mensajesModel.find({});
       return mensajes;
     } catch (error) {
       throw error;
@@ -23,7 +25,7 @@ class Mensaje {
 
   async buscarIndividual(param){
     try {
-      let msg = await sqlite("mensajes").where(param);
+      let msg = await mensajesModel.find({id: param});
       return msg;
     } catch (error) {
       throw error
