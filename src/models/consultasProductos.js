@@ -1,33 +1,36 @@
-const {knex} = require("../db");
+const {productosModel} = require("../db");
 
 function listarTodos() {
-    return knex("productos").select("*"); 
+    return productosModel.find({}); 
 }
 //========================================================================
 
 
 function listarIndividual(param) {
-    return knex("productos").select("*").where({ id: param });
+    return productosModel.find({_id: param});
 }
 //========================================================================
 
 
+function ultimoEntrado(){
+    return productosModel.find({}).sort({_id: -1}).limit(1);
+}
+//========================================================================
+
 function guardar(producto) {
-   return knex("productos").insert(producto)
+   return productosModel(producto).save();
 }
 //========================================================================
 
 
 function actualizar(id, body) {
-    const ubicacion = knex("productos").where({id: id})
-    const actualizar = {...body}
-    return ubicacion.update(actualizar)
+    return productosModel.findByIdAndUpdate(id, body, {new: true});
 }
 //========================================================================
 
 
 function borrar(id) {
-    return knex("productos").where({id: id}).del()
+    return productosModel.findByIdAndDelete(id)
 }
 //========================================================================
 
@@ -37,5 +40,6 @@ module.exports = {
     listarIndividual,
     guardar,
     actualizar,
-    borrar
+    borrar,
+    ultimoEntrado
 }

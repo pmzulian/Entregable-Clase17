@@ -11,6 +11,7 @@ async function conexion() {
         await mongoose.connect(MONGO_URL, {
           useNewUrlParser: true,
           useUnifiedTopology: true,
+          useFindAndModify: false,
         });
         console.log("Conexión con Mongoose exitosa")
 

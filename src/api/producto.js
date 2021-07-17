@@ -1,4 +1,4 @@
-const service = require("../models/consultasMensajes")
+const service = require("../models/consultasProductos")
 
 class Producto {
   constructor() {
@@ -11,7 +11,7 @@ class Producto {
 
   async guardar(producto) {
     let id = await service.guardar(producto);
-    return await service.listarIndividual(id[0])
+    return await service.ultimoEntrado();
   }
 
 
@@ -35,7 +35,7 @@ class Producto {
 
   async actualizar(id, param){
     const prod = await service.listarIndividual(id)
-    if (prod[0]) {
+    if (prod) {
       return await service.actualizar(id, param);
     } else {
       return `No existe el producto con el id ${id}`
@@ -45,9 +45,8 @@ class Producto {
 
   async borrar(id) {
     const prod = await service.listarIndividual(id)
-    if(prod[0]){
-      await service.borrar(id);
-      return prod
+    if(prod){
+      return await service.borrar(id);
     }else{
       return `No existe el producto con el id ${id}`;
     }    

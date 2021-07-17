@@ -10,8 +10,8 @@ const productos = require("../api/producto");
 router.post("/productos/guardar", async (req, res) => {
   try {
     const prods = await productos.guardar(req.body);
-    console.log(prods);
-    res.json(prods);
+    console.log(prods[0]);
+    res.json(prods[0]);
   } catch (error) {
     res.send(error)
   } 
@@ -49,8 +49,8 @@ router.put("/productos/actualizar/:id", async (req, res) => {
   const ubicacion = req.params.id;
   const actualizar = req.body;
   try {
-    await productos.actualizar(ubicacion, actualizar);
-    res.json(await productos.listarIndividual(ubicacion))
+    let prod = await productos.actualizar(ubicacion, actualizar);
+    res.json(prod)
   } catch (error) {
     res.send(error)
   }
@@ -62,7 +62,7 @@ router.put("/productos/actualizar/:id", async (req, res) => {
 router.delete("/productos/borrar/:id", async (req, res) => {
   try {
     const prod = await productos.borrar(req.params.id);
-    res.json(prod[0])
+    res.json(prod)
   } catch (error) {
     res.send(error)
   }
