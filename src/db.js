@@ -26,7 +26,7 @@ conexion();
 const mensajesSchema = new mongoose.Schema({
   mensaje: { type: String, required: true },
   email: { type: String, required: true },
-  fecha: { type: String, default: Date.now },
+  fecha: { type: Date, default: Date.now },
 });
 
 const productosSchema = new mongoose.Schema({

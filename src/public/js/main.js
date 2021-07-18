@@ -75,7 +75,7 @@ function data2TableHBS(productos) {
  * Recibimos mensajes en el cliente (del lado del navegador)
  * El parámetro data representa el array de mensajes que envía el servidor
  */
-socket.on("messages", (data) => {
+socket.on("mensajes-server", (data) => {
   console.log(data);
 });
 
@@ -99,7 +99,7 @@ function render(data) {
   document.getElementById("messages").innerHTML = html;
 }
 
-socket.on("messages", function (data) {
+socket.on("mensajes-server", function (data) {
   render(data);
 });
 
@@ -111,6 +111,7 @@ function addMessage(e) {
   let mensaje = {
     email: document.getElementById("username").value,
     mensaje: document.getElementById("texto").value,
+    fecha: new Date.toLocaleDateString(),
   };
 
   socket.emit("new-message", mensaje);
