@@ -10,6 +10,7 @@ const mensajesRouter = require("./routes/mensajes")
 
 //? No sé si irá en este archivo
 const productos = require("./api/producto.js");
+const mensajes = require("./api/mensaje");
 
 //====================================================================
 //* Para añadir Socket.io
@@ -81,16 +82,27 @@ app.use("/api", productosRouter);
 app.use("/", mensajesRouter);
 
 //====================================================================
-let messages = [];
+// let messages = [];
 
 //* Recibimos los mensajes de la función addMessage(this) de index.html
 //? ¿Es necesario una nueva instancia de in.on()?
-io.on("connection", function (socket) {
-  console.log("Un cliente se ha conectado");
-  socket.emit("messages", messages);
+io.on("connection", async function (socket) {
+  try {
+      console.log("Un cliente se ha conectado");
+      socket.emit("messages", await mensajes.listar());
 
-  socket.on("new-message", function (data) {
-    messages.push(data);
-    io.sockets.emit("messages", messages);
-  });
+      socket.on("new-message", async function (data) {
+        // messages.push(data);
+        try {
+          console.log(await mensajes.guardar(data));
+          io.sockets.emit("messages", await mensajes.listar());
+        } catch (error) {
+          console.log(error);
+        }
+        
+      });
+  } catch (error) {
+    console.log(error);
+  }
+
 }); 

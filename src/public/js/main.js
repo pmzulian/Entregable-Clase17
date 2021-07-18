@@ -1,5 +1,5 @@
 const socket = io.connect();
-
+const mensajes = require("../../api/mensaje");
 /* Si recibo productos, los muestro usando handlebars */
 socket.on("productos", function (productos) {
   console.log("productos socket client");
@@ -88,10 +88,10 @@ function render(data) {
       return `
               <li class="list-group-item d-flex justify-content-between align-items-start fst-italic">
                 <div class="ms-2 me-auto">
-                  <div class="badge badge-pill badge-primary">${elem.author}</div><br/>
-                  ${elem.text}
+                  <div class="badge badge-pill badge-primary">${elem.email}</div><br/>
+                  ${elem.mensaje}
                 </div>
-                <span class="text-monospace">${elem.hora}</span>
+                <span class="text-monospace">${elem.fecha}</span>
               </li>  
               `;
     })
@@ -109,9 +109,8 @@ socket.on("messages", function (data) {
  */
 function addMessage(e) {
   let mensaje = {
-    author: document.getElementById("username").value,
-    text: document.getElementById("texto").value,
-    hora: new Date().toLocaleString(),
+    email: document.getElementById("username").value,
+    mensaje: document.getElementById("texto").value,
   };
 
   socket.emit("new-message", mensaje);
