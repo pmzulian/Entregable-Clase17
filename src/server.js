@@ -89,13 +89,13 @@ app.use("/", mensajesRouter);
 io.on("connection", async function (socket) {
   try {
       console.log("Un cliente se ha conectado");
-      socket.emit("mensajes-server", await mensajes.listar());
+      socket.emit("messages", await mensajes.listar());
 
       socket.on("new-message", async function (data) {
         // messages.push(data);
         try {
           console.log(await mensajes.guardar(data));
-          io.sockets.emit("mensajes-server", await mensajes.listar());
+          io.sockets.emit("messages", await mensajes.listar());
         } catch (error) {
           console.log(error);
         }
