@@ -1,5 +1,5 @@
 const socket = io.connect();
-const mensajes = require("../../api/mensaje");
+// const mensajes = require("../../api/mensaje");
 /* Si recibo productos, los muestro usando handlebars */
 socket.on("productos", function (productos) {
   console.log("productos socket client");
@@ -75,9 +75,9 @@ function data2TableHBS(productos) {
  * Recibimos mensajes en el cliente (del lado del navegador)
  * El parámetro data representa el array de mensajes que envía el servidor
  */
-socket.on("messages", (data) => {
-  console.log(data);
-});
+// socket.on("messages", (data) => {
+//   console.log(data);
+// });
 
 /**
  * Generamos una función que renderice los mensajes recibidos
@@ -100,6 +100,7 @@ function render(data) {
 }
 
 socket.on("messages", function (data) {
+  console.log(data);
   render(data);
 });
 
