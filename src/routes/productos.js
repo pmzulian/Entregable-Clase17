@@ -79,8 +79,13 @@ router.get("/productos/vista", (req, res) => {
 
 
 //=====================================================================
-router.get("/productos/vista-test/:cant", (req, res) => {
-  res.send(fakes(req.params.cant));
+router.get("/productos/vista-test/:cant", async (req, res) => {
+  try {
+    res.send(await fakes(req.params.cant));
+  } catch (error) {
+    res.send(error)
+  }
+  
 })
 
 

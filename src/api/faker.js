@@ -1,25 +1,12 @@
-const faker = require("faker");
-faker.locale = "es";
+const faker = require("../models/consultaFaker");
 
-class generarFake{
-    constructor(){
-        (this.id = faker.datatype.uuid()),
-        (this.title = faker.commerce.productName()),
-        (this.price = parseFloat(faker.commerce.price())),
-        (this.thumbnail = faker.image.business()),
-        (this.stock = parseInt(faker.datatype.number(100)));
+async function generarFakes(cant){
+    try {
+        console.log(faker.arregloFakes(cant))
+        return faker.arregloFakes(cant)
+    } catch (error) {
+        throw(error)
     }
 }
 
-function arregloFakes(cant) {
-    let fakes = [];
-
-    cant > 0 ? cant : cant = 10;
-
-    for (let index = 0; index < cant; index++) {
-        fakes.push(new generarFake()) 
-    }
-    return fakes;
-}
-
-module.exports = arregloFakes;
+module.exports = generarFakes;
