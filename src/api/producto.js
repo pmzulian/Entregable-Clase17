@@ -1,4 +1,4 @@
-const service = require("../models/consultasProductos")
+const service = require("../models/consultasProductos");
 
 class Producto {
   constructor() {
@@ -51,7 +51,6 @@ class Producto {
       return `No existe el producto con el id ${id}`;
     }    
   }
-
 
 }
 

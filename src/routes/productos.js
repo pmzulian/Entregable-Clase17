@@ -4,6 +4,8 @@ const router = express.Router();
 
 const productos = require("../api/producto");
 
+const fakes = require("../api/faker");
+
 // const service = require("../models/consultas")
 
 //=====================================================================
@@ -74,5 +76,12 @@ router.get("/productos/vista", (req, res) => {
   let prods = productos.listarTodos();
   res.render("lista.hbs", { productos: prods, hayProductos: prods.length });
 });
+
+
+//=====================================================================
+router.get("/productos/vista-test/:cant", (req, res) => {
+  res.send(fakes(req.params.cant));
+})
+
 
 module.exports = router;
